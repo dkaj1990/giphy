@@ -19,7 +19,7 @@
           // constructing a queryURL variable we will use instead of the literal string inside of the ajax method
           const apiKey = 'bheXScmtfpzFw7mbYG8R6A9JnUJ7O5Tk';
           const title = "space+jam";
-          const queryURL = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=well done&limit=1&offset=0&rating=G&lang=en`;
+          const queryURL = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=that worked&limit=1&offset=0&rating=G&lang=en`;
       
           $.ajax({
             url: queryURL,
@@ -28,9 +28,11 @@
               console.log(response);
             let newP = $("<p>").text(response.data[0].rating);
             $("#gif-container").append(newP);
-            let newImg = $("<img>").attr('src', 'https://giphy.com/gifs/spotify-play-streaming-lvOnlEYunAwOkHjgmU');
+            
+            let newImg = $("<img>").attr('src', response.data[0].images.original.url);
             console.log(newP.text());
-            console.log(response.data[0].url);
+            console.log(response.data[0].images.original.url);
+            $("#gif-container").append(newImg);
             
           });
       // ---------------------------------------------------------
