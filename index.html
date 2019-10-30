@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Giphy</title>
+</head>
+<body>
+    <div class="container">
+        <div id="gif-container">
+            
+
+        </div>
+
+    </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript">
+          // constructing a queryURL variable we will use instead of the literal string inside of the ajax method
+          const apiKey = 'bheXScmtfpzFw7mbYG8R6A9JnUJ7O5Tk';
+          const title = "space+jam";
+          const queryURL = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=well done&limit=1&offset=0&rating=G&lang=en`;
+      
+          $.ajax({
+            url: queryURL,
+            method: "GET"
+          }).then(function(response) {
+              console.log(response);
+            let newP = $("<p>").text(response.data[0].rating);
+            $("#gif-container").append(newP);
+            let newImg = $("<img>").attr('src', 'https://giphy.com/gifs/spotify-play-streaming-lvOnlEYunAwOkHjgmU');
+            console.log(newP.text());
+            console.log(response.data[0].url);
+          });
+      // ---------------------------------------------------------
+      
+         
+        </script>
+    
+</body>
+</html>
