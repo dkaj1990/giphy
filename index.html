@@ -19,19 +19,27 @@
           // constructing a queryURL variable we will use instead of the literal string inside of the ajax method
           const apiKey = 'bheXScmtfpzFw7mbYG8R6A9JnUJ7O5Tk';
           const title = "space+jam";
-          const queryURL = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=that worked&limit=1&offset=0&rating=G&lang=en`;
-      
+          const queryURL = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=that worked&limit=2&offset=0&rating=G&lang=en`;
+          //creating ajax call for specific phrase button clicked 
           $.ajax({
             url: queryURL,
             method: "GET"
           }).then(function(response) {
-              console.log(response);
-            let newP = $("<p>").text(response.data[0].rating);
-            $("#gif-container").append(newP);
+
+             
+            //creating a new div to hold gif
+            const giphyDiv = $("<div class='movie'>");
+            console.log(response);
             
-            let newImg = $("<img>").attr('src', response.data[0].images.original.url);
-            console.log(newP.text());
-            console.log(response.data[0].images.original.url);
+            //store rating
+            let newP = $("<p>").text("Rating: " + response.data[imgCount].rating);
+            giphyDiv.append(newP);
+            
+            //store image
+            let newImg = $("<img>").attr('src', response.data[imgCount].images.original.url);
+            giphyDiv.append(newImg);
+            
+            
             $("#gif-container").append(newImg);
             
           });
