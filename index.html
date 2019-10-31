@@ -4,11 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style type="text/css">
+      button,
+      div,
+      form,
+      input {
+        margin: 10px;
+      }
+    </style>
     <title>Giphy</title>
 </head>
 <body>
     <div class="container">
-        <div id="gif-container">
+      <h1>Search for a phrase!</h1>
+      <div id="buttons-view"></div>
+      <form id="giphy-form">
+        <label for="giphy-input">Add a phrase</label>
+        <input type="text" id="giphy-input">
+        <br>
+        <input id="add-giphy" type="submit" value="Add a giphy">
+      </form>
+        <div class= "row" id="gif-container">
             
 
         </div>
@@ -16,10 +34,14 @@
     </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script type="text/javascript">
+          
+          //initial array of phrases
+          
+          
           // constructing a queryURL variable we will use instead of the literal string inside of the ajax method
           const apiKey = 'bheXScmtfpzFw7mbYG8R6A9JnUJ7O5Tk';
           const title = "space+jam";
-          const queryURL = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=that worked&limit=2&offset=0&rating=G&lang=en`;
+          const queryURL = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=that worked&limit=10&offset=0&rating=G&lang=en`;
           //creating ajax call for specific phrase button clicked 
           $.ajax({
             url: queryURL,
@@ -28,19 +50,22 @@
 
              
             //creating a new div to hold gif
-            const giphyDiv = $("<div class='movie'>");
+            const giphyDiv = $("<div class='giphy'>");
             console.log(response);
+            for(i=0; i<10; i++){
+
             
             //store rating
-            let newP = $("<p>").text("Rating: " + response.data[imgCount].rating);
+            let newP = $("<p>").text("Rating: " + response.data[i].rating);
             giphyDiv.append(newP);
             
             //store image
-            let newImg = $("<img>").attr('src', response.data[imgCount].images.original.url);
+            let newImg = $("<img class='col-6'>").attr('src', response.data[i].images.original.url);
             giphyDiv.append(newImg);
             
             
-            $("#gif-container").append(newImg);
+            $("#gif-container").append(giphyDiv);
+            }
             
           });
       // ---------------------------------------------------------
