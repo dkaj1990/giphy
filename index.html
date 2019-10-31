@@ -36,13 +36,15 @@
         <script type="text/javascript">
           
           //initial array of phrases
-          
-          
-          // constructing a queryURL variable we will use instead of the literal string inside of the ajax method
-          const apiKey = 'bheXScmtfpzFw7mbYG8R6A9JnUJ7O5Tk';
-          const title = "space+jam";
-          const queryURL = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=that worked&limit=10&offset=0&rating=G&lang=en`;
-          //creating ajax call for specific phrase button clicked 
+          const phrases = ["Well done", "Definitely lost", "Party time"];
+
+          //display gif
+          function displayGifInfo(){
+
+            const phrase = $(this).attr("data-name");
+            const apiKey = 'bheXScmtfpzFw7mbYG8R6A9JnUJ7O5Tk';
+          const queryURL = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${phrase}&limit=10&offset=0&rating=G&lang=en`;
+
           $.ajax({
             url: queryURL,
             method: "GET"
@@ -68,6 +70,39 @@
             }
             
           });
+          
+          
+          }
+          
+
+          function renderButtons(){
+            $("#buttons-view").empty();
+
+            for(let i=0; i < phrases.length; i++){
+              const a = $("<button>");
+              a.addClass("giphy-btn");
+              a.attr("data-name", phrases[i]);
+              a.text(phrases[i]);
+              $("#buttons-view").append(a);
+            }
+          }
+
+          $("#add-giphy").on('click', function(event){
+            event.preventDefault();
+
+            const phrase = $("#giphy-input").val().trim();
+
+            phrases.push(phrase);
+
+            renderButtons();
+
+          });
+          // constructing a queryURL variable we will use instead of the literal string inside of the ajax method
+          $(document).on("click", "giphy-btn", displayGifInfo);
+
+          renderButtons();
+          //creating ajax call for specific phrase button clicked 
+
       // ---------------------------------------------------------
       
          
